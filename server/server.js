@@ -73,7 +73,7 @@ app.get('/api/login-stats', async (req, res) => {
     try {
         const stats = await User.aggregate([
             {
-                $match: { lastLoginDate: { $ne: null } } // Filter users who have logged in
+                $match: { lastLoginDate: { $ne: null } } 
             },
             {
                 $group: {
