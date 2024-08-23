@@ -16,7 +16,7 @@ function LoginStats() {
     useEffect(() => {
         const fetchLoginStats = async () => {
             try {
-                const response = await fetch('https://startoon-2.onrender.com/api/login-stats');
+                const response = await fetch('http://localhost:5000/api/login-stats');
                 if (!response.ok) {
                     throw new Error('Failed to fetch login stats');
                 }

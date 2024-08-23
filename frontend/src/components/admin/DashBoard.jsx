@@ -10,7 +10,7 @@ function AdminPage() {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch('https://startoon-2.onrender.com/api/admin');
+                const response = await fetch('http://localhost:5000/api/admin');
                 if (!response.ok) {
                     throw new Error('Failed to fetch users');
                 }

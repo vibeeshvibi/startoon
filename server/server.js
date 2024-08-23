@@ -2,24 +2,18 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
-const port = 6000;
+const port = 9000;
 
 app.use(cors());
 app.use(express.json());
 
+const {User} = require('./model/User')
+
 mongoose.connect('mongodb+srv://vibeeshn21aid:OJYLfNk2VUewtJ4Y@data.m0mi4.mongodb.net/', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 }).then(() => console.log('DB connected'));
 
-const UserSchema = new mongoose.Schema({
-    name: String,
-    email: { type: String, unique: true },
-    password: String,
-    gender: String,
-    loginCount: { type: Number, default: 0 },
-    lastLoginDate: { type: Date, default: null },
-});
-
-const User = mongoose.model('user_data', UserSchema);
 
 app.post('/api/signup', async (req, res) => {
     try {

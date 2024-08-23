@@ -4,23 +4,19 @@ import { useNavigate } from 'react-router-dom';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false); 
   const navigate = useNavigate();
 
   const handleNavigate = () => navigate('/signup');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true); 
-
     if (email === 'admin@email.com' && password === 'Admin@123') {
       alert('Admin Login');
       localStorage.setItem('user', true);
       navigate('/admin');
-      setIsLoading(false); 
     } else {
       try {
-        const response = await fetch('https://startoon-2.onrender.com/api/login', {
+        const response = await fetch('http://localhost:5000/api/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -40,8 +36,6 @@ function Login() {
       } catch (error) {
         console.error('Error:', error);
         alert('An error occurred during login. Please try again.');
-      } finally {
-        setIsLoading(false); 
       }
     }
   };
@@ -74,14 +68,13 @@ function Login() {
           <div className='flex gap-10'>
             <button
               type="submit"
-              className={`w-full border-none text-white py-2 px-4 rounded-lg ${isLoading ? 'bg-gray-400' : 'bg-green-500'}`}
+              className="w-full border-none bg-green-500 text-white py-2 px-4 rounded-lg"
               onClick={handleSubmit}
-              disabled={isLoading} 
             >
-              {isLoading ? 'Loading...' : 'Sign In'} 
+              Sign In
             </button>
             <button
-              type="button"
+              type="submit"
               className="w-full border-none bg-red-500 text-white py-2 px-4 rounded-lg"
               onClick={handleNavigate}
             >

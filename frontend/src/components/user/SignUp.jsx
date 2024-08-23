@@ -2,22 +2,23 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         password: '',
         gender: 'male',
     });
-    const [isLoading, setIsLoading] = useState(false); 
+
     const [errors, setErrors] = useState({
         name: '',
         email: '',
         password: '',
     });
 
+    // Simple regex patterns
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const passwordPattern = /^.{6,}$/; 
+    const passwordPattern = /^.{6,}$/; // At least 6 characters
 
     const handleChange = (e) => {
         setFormData({
@@ -47,16 +48,14 @@ function SignUp() {
         return valid;
     };
 
-    const handleNavigate = () => navigate('/');
+    const handleNavigate = () => (navigate('/'))
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validateForm()) return;
 
-        setIsLoading(true); 
-
         try {
-            const response = await fetch('https://startoon-2.onrender.com/api/signup', {
+            const response = await fetch('http://localhost:5000/api/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -75,8 +74,6 @@ function SignUp() {
             console.log('Success:', data);
         } catch (error) {
             console.error('Error:', error);
-        } finally {
-            setIsLoading(false); 
         }
     };
 
@@ -84,7 +81,7 @@ function SignUp() {
         <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
                 <h2 className="text-2xl font-bold mb-6 text-center text-gray-700">Sign Up</h2>
-                <form>
+                <form >
                     <div className="mb-4">
                         <label className="block text-sm font-medium text-gray-600 mb-2">Name:</label>
                         <input
@@ -151,14 +148,13 @@ function SignUp() {
                     <div className='flex gap-10'>
                         <button
                             type="submit"
-                            className={`w-full border-none text-white py-2 px-4 rounded-lg ${isLoading ? 'bg-gray-400' : 'bg-green-500'}`}
+                            className="w-full border-none bg-green-500 text-white py-2 px-4 rounded-lg"
                             onClick={handleSubmit}
-                            disabled={isLoading} 
                         >
-                            {isLoading ? 'Loading...' : 'Sign Up'} 
+                            Sign Up
                         </button>
                         <button
-                            type="button"
+                            type="submit"
                             className="w-full border-none bg-red-500 text-white py-2 px-4 rounded-lg"
                             onClick={handleNavigate}
                         >
